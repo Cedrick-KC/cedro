@@ -2,7 +2,7 @@
     const projects = [
       {
         name: 'E-commerce Platform',
-        description: 'A full-stack e-commerce site built with Node.js and PostgreSQL.',
+        description: 'A full-stack e-commerce site built with vanilla JS and PHP.',
         tech: ['Vanilla JS', 'PHP', 'MySQL'],
         link: 'https://ehaho.xo.je'
       },
