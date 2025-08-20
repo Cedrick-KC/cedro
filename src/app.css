@@ -4,7 +4,8 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: row; /* Default: content + sidebar side by side */
+  flex-direction: row; /* Desktop: content + sidebar side by side */
+  min-height: 100vh;
 }
 
 h2 {
@@ -16,10 +17,7 @@ h2 {
   width: 300px;
   background-color: #1e1e1e;
   color: white;
-  height: 100vh;
   padding: 20px;
-  position: sticky;
-  top: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -34,9 +32,7 @@ h2 {
   background-color: rgba(0, 0, 0, 0.5);
   color: aliceblue;
   padding: 40px;
-  min-height: 100vh;
   transition: all 0.3s ease-in-out;
-  margin-right: 0;
 }
 
 /* Laptop & small desktops (≤1200px) */
@@ -54,7 +50,7 @@ h2 {
   }
 }
 
-/* Tablet & Mobile (≤ 768px) → Sidebar goes below content */
+/* Tablet & Mobile (≤ 768px) → Sidebar below content */
 @media (max-width: 768px) {
   body {
     flex-direction: column; /* Stack vertically */
@@ -62,14 +58,14 @@ h2 {
 
   .sidebar {
     width: 100%;
-    height: auto;
     border-left: none;
     border-top: 1px solid #333;
-    position: static; /* No fixed position */
     padding: 20px;
+    height: auto; /* prevent fixed height */
   }
 
   .main-content {
+    width: 100%;
     padding: 20px;
   }
 }
