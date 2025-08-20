@@ -2,25 +2,24 @@
   import Sidebar from './Sidebar.svelte';
   import Projects from './Projects.svelte';
   import Contact from './Contact.svelte';
-  
-  let isSidebarFixed = true;
 
-  function toggleSidebar() {
-    isSidebarFixed = !isSidebarFixed;
-  }
+  // Pinned = sticky on desktop, Free = fully scrollable
+  let isPinned = true;
+  const toggleSidebar = () => (isPinned = !isPinned);
 </script>
 
-<div class="portfolio-container" class:scrollable-sidebar={!isSidebarFixed}>
+<div class="portfolio-container" class:pinned={isPinned} class:free={!isPinned}>
   <main class="main-content">
     <Projects />
     <Contact />
   </main>
 
   <aside class="sidebar">
-    <Sidebar full={!isSidebarFixed} />
+    <Sidebar full={!isPinned} />
+
     <div class="sidebar-footer">
       <button on:click={toggleSidebar}>
-        {isSidebarFixed ? 'View All Content' : 'Fix Sidebar'}
+        {isPinned ? 'View All Content' : 'Pin Sidebar'}
       </button>
     </div>
   </aside>
@@ -34,10 +33,10 @@
     color: #e6edf3;
   }
 
-  /* Grid layout */
+  /* GRID: main + sidebar (no overlap) */
   .portfolio-container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr); /* mobile: single column */
     gap: 2rem;
     padding: 2rem;
     max-width: 1200px;
@@ -45,49 +44,58 @@
   }
 
   @media (min-width: 768px) {
+    /* desktop: sidebar column width stays fixed, main grows */
     .portfolio-container {
-      grid-template-columns: 2fr 1fr; /* main + sidebar side by side */
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: start;
     }
   }
 
-  /* Main content styling */
   .main-content {
-    background-color: #161b22;
+    background: #161b22;
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    min-width: 0; /* prevents overflow in grid */
   }
 
-  /* Sidebar styling */
   .sidebar {
-    background-color: #161b22;
+    background: #161b22;
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   }
 
-  /* Default: fixed sidebar on desktop */
+  /* ✅ Sticky (non-overlapping) on desktop when pinned */
   @media (min-width: 768px) {
-    .sidebar {
-      position: fixed;
-      right: 2rem;
+    .pinned .sidebar {
+      position: sticky;
       top: 2rem;
-      height: calc(100vh - 4rem);
-      width: calc(33.33% - 2.5rem);
-      overflow-y: auto;
-      z-index: 10;
+      align-self: start;
+      max-height: calc(100vh - 4rem);
+      overflow: auto;
     }
   }
 
-  /* Scrollable sidebar (when toggled) */
-  .portfolio-container.scrollable-sidebar .sidebar {
+  /* ✅ When "free", sidebar just scrolls in-flow */
+  .free .sidebar {
     position: static;
-    height: auto;
-    width: auto;
-    overflow-y: visible;
+    max-height: none;
+    overflow: visible;
   }
 
-  /* Sidebar footer */
+  /* ✅ FORCE: Mobile/tablet — sidebar BELOW, never sticky/fixed */
+  @media (max-width: 767px) {
+    .sidebar {
+      position: static !important;
+      top: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      width: 100%;
+      border-top: 1px solid #333;
+    }
+  }
+
   .sidebar-footer {
     padding-top: 1rem;
     border-top: 1px solid #333;
