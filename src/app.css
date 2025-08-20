@@ -1,4 +1,3 @@
-
 body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: x-large;
@@ -10,7 +9,7 @@ h2 {
   color: #00ffcc6e;
 }
 
-
+/* Sidebar */
 .sidebar {
   width: 300px;
   background-color: #1e1e1e;
@@ -25,29 +24,52 @@ h2 {
   flex-direction: column;
   gap: 20px;
   border-left: 1px solid #333;
+  transition: all 0.3s ease-in-out;
 }
 
-
+/* Main content */
 .main-content {
   background-color: rgba(0, 0, 0, 0.5);
   color: aliceblue;
   margin-right: 320px; 
   padding: 40px;
   min-height: 100vh;
+  transition: all 0.3s ease-in-out;
 }
 
-
+/* Tablet (≤ 768px) */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%; 
-    height: auto; 
-    position: static; 
+    width: 100%;
+    height: auto;
+    position: static;
     border-left: none;
     border-bottom: 1px solid #333;
   }
 
   .main-content {
-    margin-right: 0; 
-    padding: 20px; 
+    margin-right: 0;
+    padding: 20px;
+  }
+}
+
+/* Smartphone (≤ 480px) */
+@media (max-width: 480px) {
+  body {
+    font-size: medium; /* smaller text for readability */
+  }
+
+  .sidebar {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    text-align: center;
   }
 }
