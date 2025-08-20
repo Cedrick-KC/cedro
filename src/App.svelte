@@ -3,7 +3,6 @@
   import Projects from './Projects.svelte';
   import Contact from './Contact.svelte';
   
-  // This prop will now control if the sidebar is fixed or fully scrollable.
   let isSidebarFixed = true;
 
   function toggleSidebar() {
@@ -16,6 +15,7 @@
     <Projects />
     <Contact />
   </main>
+
   <aside class="sidebar">
     <Sidebar full={!isSidebarFixed} />
     <div class="sidebar-footer">
@@ -34,6 +34,7 @@
     color: #e6edf3;
   }
 
+  /* Grid layout */
   .portfolio-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -45,10 +46,11 @@
 
   @media (min-width: 768px) {
     .portfolio-container {
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 2fr 1fr; /* main + sidebar side by side */
     }
   }
 
+  /* Main content styling */
   .main-content {
     background-color: #161b22;
     padding: 1.5rem;
@@ -56,21 +58,28 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   }
 
+  /* Sidebar styling */
   .sidebar {
     background-color: #161b22;
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    position: fixed;
-    right: 2rem;
-    top: 2rem;
-    height: calc(100vh - 4rem);
-    width: calc(33.33% - 2.5rem);
-    overflow-y: auto;
-    z-index: 10;
   }
-  
-  /* When the 'scrollable-sidebar' class is active, the sidebar behaves normally */
+
+  /* Default: fixed sidebar on desktop */
+  @media (min-width: 768px) {
+    .sidebar {
+      position: fixed;
+      right: 2rem;
+      top: 2rem;
+      height: calc(100vh - 4rem);
+      width: calc(33.33% - 2.5rem);
+      overflow-y: auto;
+      z-index: 10;
+    }
+  }
+
+  /* Scrollable sidebar (when toggled) */
   .portfolio-container.scrollable-sidebar .sidebar {
     position: static;
     height: auto;
@@ -78,6 +87,7 @@
     overflow-y: visible;
   }
 
+  /* Sidebar footer */
   .sidebar-footer {
     padding-top: 1rem;
     border-top: 1px solid #333;
