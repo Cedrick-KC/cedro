@@ -3,8 +3,8 @@
       {
         name: 'E-commerce Platform',
         description: 'A full-stack e-commerce site built with Node.js and PostgreSQL.',
-        tech: ['Svelte', 'Node.js', 'PostgreSQL'],
-        link: '#'
+        tech: ['Vanilla JS', 'PHP', 'MySQL'],
+        link: 'https://ehaho.xo.je'
       },
       {
         name: 'Task Manager App',
